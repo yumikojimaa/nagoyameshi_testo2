@@ -12,12 +12,12 @@
 	<title>お気に入り一覧</title>
 </head>
 <body>
-	<div class="samuraitravel-wrapper">
+	<div class="nagoyameshi-wrapper">
 		<!-- ヘッダー -->
 		<div th:replace="~{fragment :: header}"></div>	
 
 		<main>
-			<div class="container samuraitravel-container pb-5">
+			<div class="container nagoyameshi-container pb-5">
 				<div class="row justify-content-center">
 					<div class="col-xxl-9 col-xl-10 col-lg-11">
 						<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -32,28 +32,29 @@
 			<h1 class="mb-3 text-center">お気に入り一覧</h1> 
 			<div class="row justify-content-md-center g-6 mb-3" th:each="favoritesPage : ${favoritesPage}">
 				<div class="col-6">
-					<a th:href="@{/houses/__${favoritesPage.getId()}__}" class="link-dark samuraitravel-card-link">
+					<a th:href="@{/restaurants/__${favoritesPage.getId()}__}" class="link-dark nagoyameshi-card-link">
 						<div class="card h-100">
 							<div class="row">
 								<div class="col-md-4">
-									<img th:if="${favoritesPage.house.getImageName()}"
-										th:src="@{/storage/__${favoritesPage.house.getImageName()}__}"
-										class="card-img-top samuraitravel-vertical-card-image" alt="店舗画像">
-									<img th:unless="${favoritesPage.house.getImageName()}"
+									<img th:if="${favoritesPage.restaurant.getImageName()}"
+										th:src="@{/storage/__${favoritesPage.restaurant.getImageName()}__}"
+										class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
+									<img th:unless="${favoritesPage.restaurant.getImageName()}"
 										th:src="@{/images/noImage.png}"
-										class="card-img-top samuraitravel-vertical-card-image" alt="NO IMAGE">
+										class="card-img-top nagoyameshi-vertical-card-image" alt="NO IMAGE">
 								</div>
 								<div class="col-md-5">
 									<div class="card-body">
-										<h3 class="card-title" th:text="${favoritesPage.house.getName()}"></h3>
+										<h3 class="card-title" th:text="${favoritesPage.restaurant.getName()}"></h3>
 										<hr style="border: 1px solid #000; margin: 0;"> 
 										<p class="card-text mb-1">
-											<small class="text-muted" th:text="${favoritesPage.house.getDescription()}"></small>
-											<small class="text-muted" th:text="${favoritesPage.house.getPostalCode()}"></small>
-											<small class="text-muted" th:text="${favoritesPage.house.getAddress()}"></small>
+											<small class="text-muted" th:text="${favoritesPage.restaurant.getDescription()}"></small>
+											<small class="text-muted" th:text="${favoritesPage.restaurant.getPostalCode()}"></small>
+											<small class="text-muted" th:text="${favoritesPage.restaurant.getAddress()}"></small>
 										</p>
 										<p class="card-text">
-											<span th:text="${#numbers.formatInteger(favoritesPage.house.getPrice(), 1, 'COMMA') + '円/泊'}"></span>
+											<span th:text="${#numbers.formatInteger(favoritesPage.restaurant.getLowestPrice(), 1, 'COMMA') + '円～' + #numbers.formatInteger(favoritesPage.restaurant.getHighestPrice(), 1, 'COMMA') + '円'}"></span>
+										
 										</p>
 									</div>
 								</div>
@@ -71,19 +72,19 @@
 							<span th:if="${favoritesPage.isFirst()}" class="page-link disabled">前</span>
 							<a th:unless="${favoritesPage.isFirst()}"
 								th:href="@{/favorites(page = ${favoritesPage.getNumber() - 1})}"
-								class="page-link samuraitravel-page-link">前</a>
+								class="page-link nagoyameshi-page-link">前</a>
 						</li>
 						<li th:each="i : ${#numbers.sequence(0, favoritesPage.getTotalPages() - 1)}" class="page-item">
 							<span th:if="${i == favoritesPage.getNumber()}"
-								class="page-link active samuraitravel-active" th:text="${i + 1}"></span>
+								class="page-link active nagoyameshi-active" th:text="${i + 1}"></span>
 							<a th:unless="${i == favoritesPage.getNumber()}" th:href="@{/favorites(page = ${i})}"
-								class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
+								class="page-link nagoyameshi-page-link" th:text="${i + 1}"></a>
 						</li>
 						<li class="page-item">
 							<span th:if="${favoritesPage.isLast()}" class="page-link disabled">次</span>
 							<a th:unless="${favoritesPage.isLast()}"
 								th:href="@{/favorites(page = ${favoritesPage.getNumber() + 1})}"
-								class="page-link samuraitravel-page-link">次</a>
+								class="page-link nagoyameshi-page-link">次</a>
 						</li>
 					</ul>
 				</nav>

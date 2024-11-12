@@ -8,12 +8,12 @@
          <title>会員詳細</title>   
      </head>
      <body>
-         <div class="samuraitravel-wrapper">
+         <div class="nagoyameshi-wrapper">
              <!-- ヘッダー -->
              <div th:replace="~{fragment :: header}"></div>
              
              <main>
-                 <div class="container pb-5 samuraitravel-container">
+                 <div class="container pb-5 nagoyameshi-container">
                      <div class="row justify-content-center">
                          <div class="col-xl-5 col-lg-6 col-md-8">
                              <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -54,6 +54,16 @@
                                      <div class="col">
                                          <span th:text="${user.getFurigana()}"></span>
                                      </div>
+                                 </div>   
+                                 
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">メールアドレス</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${user.getEmail()}"></span>
+                                     </div>
                                  </div>            
                                  
                                  <div class="row pb-2 mb-2 border-bottom">
@@ -86,15 +96,26 @@
                                      </div>
                                  </div>  
                                  
-                                 <div class="row pb-2 mb-2 border-bottom">
+                                  <div class="row pb-2 mb-2 border-bottom">
                                      <div class="col-4">
-                                         <span class="fw-bold">メールアドレス</span>
+                                         <span class="fw-bold">誕生日</span>
                                      </div>
              
                                      <div class="col">
-                                         <span th:text="${user.getEmail()}"></span>
+                                         <span th:text="${user.getBirthday()}"></span>
                                      </div>
-                                 </div>                                 
+                                 </div> 
+                                  
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">職業</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${user.getOccupation()}"></span>
+                                     </div>
+                                 </div> 
+                                                                
                              </div>                                                                                                                           
                          </div>
                      </div>

@@ -1,13 +1,16 @@
-CREATE TABLE IF NOT EXISTS houses (
+CREATE TABLE IF NOT EXISTS restaurants (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      name VARCHAR(50) NOT NULL,  
      image_name VARCHAR(255),
      description VARCHAR(255) NOT NULL,
-     price INT NOT NULL,
-     capacity INT NOT NULL,
+     lowest_price INT NOT NULL,
+     highest_price INT NOT NULL,
      postal_code VARCHAR(50) NOT NULL,
      address VARCHAR(255) NOT NULL,
-     phone_number VARCHAR(50) NOT NULL,
+     regular_holiday VARCHAR(50) NOT NULL,
+     opening_time VARCHAR(50) NOT NULL,
+     seating_capacity INT NOT NULL,
+     category VARCHAR(50) NOT NULL,
      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
  );
@@ -21,10 +24,12 @@ CREATE TABLE IF NOT EXISTS houses (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      name VARCHAR(50) NOT NULL,
      furigana VARCHAR(50) NOT NULL,
+     email VARCHAR(255) NOT NULL UNIQUE,
      postal_code VARCHAR(50) NOT NULL,
      address VARCHAR(255) NOT NULL,
      phone_number VARCHAR(50) NOT NULL,
-     email VARCHAR(255) NOT NULL UNIQUE,
+     birthday VARCHAR(50) NOT NULL,
+     occupation VARCHAR(50) NOT NULL,
      password VARCHAR(255) NOT NULL,    
      role_id INT NOT NULL, 
      enabled BOOLEAN NOT NULL,
@@ -44,7 +49,7 @@ CREATE TABLE IF NOT EXISTS houses (
  
   CREATE TABLE IF NOT EXISTS reservations (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-     house_id INT NOT NULL,
+     restaurant_id INT NOT NULL,
      user_id INT NOT NULL,
      checkin_date DATE NOT NULL,
      checkout_date DATE NOT NULL,
@@ -52,13 +57,13 @@ CREATE TABLE IF NOT EXISTS houses (
      amount INT NOT NULL,
      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-     FOREIGN KEY (house_id) REFERENCES houses (id),
+     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id),
      FOREIGN KEY (user_id) REFERENCES users (id)
  );
  
  CREATE TABLE IF NOT EXISTS review (
 	  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	  house_id INT NOT NULL,
+	  restaurant_id INT NOT NULL,
 	  user_id INT NOT NULL,
 	  star INT NOT NULL,
 	  review VARCHAR(255) NOT NULL,
@@ -69,8 +74,9 @@ CREATE TABLE IF NOT EXISTS houses (
 
  CREATE TABLE IF NOT EXISTS favorites (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	house_id INT NOT NULL,
+	restaurant_id INT NOT NULL,
 	user_id INT NOT NULL,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
