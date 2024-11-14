@@ -1,5 +1,6 @@
 package com.example.nagoyameshi.form;
 
+
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.Min;
@@ -30,7 +31,8 @@ public class RestaurantRegisterForm {
     @NotBlank(message = "定休日を入力してください。")
     private String regularholiday;
     
-    @NotBlank(message = "営業時間を入力してください。")
+    @NotNull(message = "開始時間を入力してください。")
+    @Min(value = 0, message = "開始時間は0以上にしてください。")
     private String openingtime;
     
     @NotNull(message = "座席数を入力してください。")
@@ -38,6 +40,7 @@ public class RestaurantRegisterForm {
     private Integer seatingcapacity; 
     
     @NotBlank(message = "カテゴリを入力してください。")
-    private String category;
+    private Integer category;
+
     
 }

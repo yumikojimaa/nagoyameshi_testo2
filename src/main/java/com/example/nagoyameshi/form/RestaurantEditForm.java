@@ -43,5 +43,5 @@ public class RestaurantEditForm {
     private Integer seatingcapacity;       
     
     @NotBlank(message = "カテゴリを入力してください。")
-    private String category;
+    private Integer category;
 }

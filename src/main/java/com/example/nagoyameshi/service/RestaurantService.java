@@ -13,14 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.nagoyameshi.entity.Restaurant;
 import com.example.nagoyameshi.form.RestaurantEditForm;
 import com.example.nagoyameshi.form.RestaurantRegisterForm;
+import com.example.nagoyameshi.repository.CategoryRepository;
 import com.example.nagoyameshi.repository.RestaurantRepository;
  
  @Service
  public class RestaurantService {
-     private final RestaurantRepository restaurantRepository;    
+	 private final RestaurantRepository restaurantRepository;
+     private final CategoryRepository categoryRepository;
      
-     public RestaurantService(RestaurantRepository restaurantRepository) {
-         this.restaurantRepository = restaurantRepository;        
+     public RestaurantService(RestaurantRepository restaurantRepository, CategoryRepository categoryRepository) {
+         this.restaurantRepository = restaurantRepository;
+         this.categoryRepository = categoryRepository;
      }    
      
      public Restaurant findById(Integer restaurantId) {
@@ -50,7 +53,7 @@ import com.example.nagoyameshi.repository.RestaurantRepository;
          restaurant.setRegularHoliday(restaurantRegisterForm.getRegularholiday());
          restaurant.setOpeningTime(restaurantRegisterForm.getOpeningtime());
          restaurant.setSeatingCapacity(restaurantRegisterForm.getSeatingcapacity());
-         restaurant.setCategory(restaurantRegisterForm.getCategory());
+         restaurant.setCategory(categoryRepository.getReferenceById(restaurantRegisterForm.getCategory()));
                      
          restaurantRepository.save(restaurant);
      }  
@@ -77,7 +80,8 @@ import com.example.nagoyameshi.repository.RestaurantRepository;
          restaurant.setRegularHoliday(restaurantEditForm.getRegularholiday());
          restaurant.setOpeningTime(restaurantEditForm.getOpeningtime());
          restaurant.setSeatingCapacity(restaurantEditForm.getSeatingcapacity());
-         restaurant.setCategory(restaurantEditForm.getCategory());
+         restaurant.setCategory(categoryRepository.getReferenceById(restaurantEditForm.getCategory()));
+
                      
          restaurantRepository.save(restaurant);
      }    

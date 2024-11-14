@@ -28,6 +28,8 @@ import com.example.nagoyameshi.service.StripeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
+
 @Controller
 public class ReservationController {
  private final ReservationRepository reservationRepository;  
@@ -62,10 +64,10 @@ public class ReservationController {
      {   
          Restaurant restaurant = restaurantRepository.getReferenceById(id);
          Integer numberOfPeople = reservationInputForm.getNumberOfPeople();   
-         Integer seating_capacity = restaurant.getSeatingCapacity();
+         Integer seatingcapacity = restaurant.getSeatingCapacity();
          
          if (numberOfPeople != null) {
-             if (!reservationService.isWithinSeatingCapacity(numberOfPeople, seating_capacity)) {
+             if (!reservationService.isWithinSeatingCapacity(numberOfPeople, seatingcapacity)) {
                  FieldError fieldError = new FieldError(bindingResult.getObjectName(), "numberOfPeople", "人数が定員を超えています。");
                  bindingResult.addError(fieldError);                
              }            
@@ -95,7 +97,7 @@ public class ReservationController {
                  
          
          
-         Integer amount;
+         Integer amount=1;
 		ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(restaurant.getId(), user.getId(), getReservationDate(), getReservationDate(), reservationInputForm.getNumberOfPeople(), amount);
          
          String sessionId = stripeService.createStripeSession(restaurant.getName(), reservationRegisterForm, httpServletRequest);

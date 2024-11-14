@@ -61,7 +61,7 @@
                                          <td th:text="${restaurant.getRegularHoliday()}"></td>
                                          <td th:text="${restaurant.getOpeningTime()}"></td>
                                          <td th:text="${restaurant.getSeatingCapacity()}"></td>
-                                         <td th:text="${restaurant.getCategory()}"></td>
+                                         <td th:text="${restaurant.getCategory().getName()}"></td>
                                           <td><a th:href="@{/admin/restaurants/__${restaurant.getId()}__}">詳細</a></td>  
                                           <td><a href="#" class="nagoyameshi-link-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteRestaurantModal' + restaurant.getId()}">削除</a></td>
                                           

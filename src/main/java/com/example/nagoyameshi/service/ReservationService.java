@@ -35,19 +35,23 @@ public class ReservationService {
         Restaurant restaurant = restaurantRepository.getReferenceById(restaurantId);       
         User user = userRepository.getReferenceById(userId);
         LocalDate reservationDate = LocalDate.parse(paymentIntentObject.get("reservationDate"));
-        Integer reservationTime = Integer.valueOf(paymentIntentObject.get("reservationTime"));
+        String reservationTime = String.valueOf(paymentIntentObject.get("reservationTime"));
         Integer numberOfPeople = Integer.valueOf(paymentIntentObject.get("numberOfPeople"));        
-        Integer amount = Integer.valueOf(paymentIntentObject.get("amount")); 
+       
                 
         reservation.setRestaurant(restaurant);
         reservation.setUser(user);
         reservation.setReservationDate(reservationDate);
         reservation.setReservationTime(reservationTime);
         reservation.setNumberOfPeople(numberOfPeople);
-        reservation.setAmount(amount);
+       
         
         reservationRepository.save(reservation);
-    }    
+    }
+
+	
+
+	  
     
      
 }

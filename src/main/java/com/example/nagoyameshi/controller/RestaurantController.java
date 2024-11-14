@@ -16,6 +16,7 @@ import com.example.nagoyameshi.entity.Restaurant;
 import com.example.nagoyameshi.entity.Review;
 import com.example.nagoyameshi.form.FavoriteRegisterForm;
 import com.example.nagoyameshi.form.ReservationInputForm;
+import com.example.nagoyameshi.repository.CategoryRepository;
 import com.example.nagoyameshi.repository.FavoriteRepository;
 import com.example.nagoyameshi.repository.RestaurantRepository;
 import com.example.nagoyameshi.repository.ReviewRepository;
@@ -27,23 +28,27 @@ public class RestaurantController {
 	private final RestaurantRepository restaurantRepository;
 	private final ReviewRepository reviewRepository;
 	private final FavoriteRepository favoriteRepository;
+	private final CategoryRepository categoryRepository;
 	
 	public RestaurantController(RestaurantRepository restaurantRepository,
-			ReviewRepository reviewRepository, FavoriteRepository favoriteRepository) {
+			ReviewRepository reviewRepository, FavoriteRepository favoriteRepository,
+			CategoryRepository categoryRepository) {
 		this.restaurantRepository = restaurantRepository;
 		this.reviewRepository = reviewRepository;
 		this.favoriteRepository = favoriteRepository;
+		this.categoryRepository = categoryRepository;
 	}
 
 	@GetMapping
 	public String index(@RequestParam(name = "keyword", required = false) String keyword,
 			//検索部分のパラメーター
-			
+			//@RequestParam(name = "category_name", required = false) String categoryName,
+			@RequestParam(name = "category_id", required = false) Integer categoryId,
 			@RequestParam(name = "price", required = false) Integer price,
 			@RequestParam(name = "order", required = false) String order,
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
 			Model model) {
-		Page<Restaurant> restaurantPage;
+		Page<Restaurant> restaurantPage = Page.empty();
 		//キーワードによる検索
 		if (keyword != null && !keyword.isEmpty()) {
 			if (order != null && order.equals("priceAsc")) {
@@ -61,6 +66,17 @@ public class RestaurantController {
 			} else {
 				restaurantPage = restaurantRepository.findByLowestPriceLessThanEqualOrderByCreatedAtDesc(price, pageable);
 			}
+			
+//			} else if (categoryName!= null) {
+//			restaurantPage = restaurantRepository.findByCategoryOrderByCreatedAtDesc(categoryName, pageable);
+		} else if (categoryId!= null) {
+			var category = categoryRepository.getReferenceById(categoryId);
+			if (order != null && order.equals("priceAsc")) {
+				restaurantPage = restaurantRepository.findByCategoryOrderByLowestPriceAsc(category, pageable);
+			} else {
+				restaurantPage = restaurantRepository.findByCategoryOrderByCreatedAtDesc(category, pageable);
+			}
+			
 		//その他
 		} else {
 			if (order != null && order.equals("priceAsc")) {
@@ -74,7 +90,6 @@ public class RestaurantController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("price", price);
 		model.addAttribute("order", order);
-
 		return "restaurants/index";
 	}
 	

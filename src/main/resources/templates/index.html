@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
@@ -8,169 +9,100 @@
 	<title>NAGOYAMESHI</title>
 </head>
 
-<body>
+<divbody>
 	<div class="nagoyameshi-wrapper">
 		<!-- ヘッダー -->
 		<div th:replace="~{fragment :: header}"></div>
 
 		<main>
-			<div class="container pt-4 pb-5 nagoyameshi-container">
-				<div th:if="${param.loggedIn}" class="alert alert-info">
-					ログインしました。
-				</div>
-
-				<div th:if="${param.loggedOut}" class="alert alert-info">
-					ログアウトしました。
-				</div>
-
-				<div th:if="${successMessage}" class="alert alert-info">
-					<span th:text="${successMessage}"></span>
-				</div>
-
-				<div class="d-flex justify-content-center">
-					<form method="get" th:action="@{/restaurants}" class="mb-5 nagoyameshi-search-form">
-						<div class="input-group">
-							<input type="text" class="form-control" name="keyword" th:value="${keyword}"
-								placeholder="店舗名・カテゴリ">
-							<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
-						</div>
-					</form>
-				</div>
-
-				<h2 class="text-center mb-3">新着</h2>
-				<div class="row row-cols-lg-5 row-cols-2 g-3 mb-5">
-					<div class="col" th:each="newRestaurant : ${newRestaurants}">
-						<a th:href="@{/restaurants/__${newRestaurant.getId()}__}"
-							class="link-dark nagoyameshi-card-link">
-							<div class="card h-100">
-								<img th:if="${newRestaurant.getImageName()}"
-									th:src="@{/storage/__${newRestaurant.getImageName()}__}"
-									class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
-								<img th:unless="${newRestaurant.getImageName()}" th:src="@{/images/noImage.png}"
-									class="card-img-top nagoyameshi-vertical-card-image" alt="NO IMAGE">
-								<div class="card-body">
-									<h3 class="card-title" th:text="${newRestaurant.getName()}"></h3>
-									<p class="card-text mb-1">
-										<small class="text-muted" th:text="${newRestaurant.getAddress()}"></small>
-									</p>
-									<p class="card-text">
-										<span
-											th:text="${#numbers.formatInteger(newRestaurant.getLowestPrice(), 1, 'COMMA') + '円～' + #numbers.formatInteger(newRestaurant.getHighestPrice(), 1, 'COMMA') + '円'}"></span>
-
-									</p>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="/images/main1.png" alt="Image 1">
+						<div class="swiper-slide">
+							<im src="/images/main2.png" alt="Image 2">
+								<div class="swiper-slide">
+									<img src="/images/main3.png" alt="Image 3">
 								</div>
-							</div>
-						</a>
+						</div>
+						<!-- ページネーション（ドット表示） -->
+						<div class="swiper-pagination"></div>
+						<!-- ナビゲーションボタン（左右）-->
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
 					</div>
-				</div>
 
-				<h2 class="text-center">カテゴリ検索</h2>
-				<div class="row justify-content-center mb-4">
-					<div class="col-12 col-md-8">
-						<a class="btn btn-secondary mb-2"
-							href="@{/restaurants?category_id=1"
-							role="button">居酒屋</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">焼肉</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">寿司</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">ラーメン</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">定食</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">カレー</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">喫茶店</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">中華料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">イタリア料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">フランス料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">スペイン料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">韓国料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">タイ料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">海鮮料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">ステーキ</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">ハンバーグ</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">ハンバーガー</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">そば</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">うどん</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">お好み焼き</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">たこ焼き</a>
-						<a class="btn btn-secondary mb-2"
-						
-							role="button">鍋料理</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">バー</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">パン</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">スイーツ</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">和食</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">おでん</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">焼き鳥</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">すき焼き</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">しゃぶしゃぶ</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">天ぷら</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">揚げ物</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">丼物</a>
-						<a class="btn btn-secondary mb-2"
-							
-							role="button">鉄板焼き</a>
+					<!-- オーバーレイテキスト -->
+					<div class="d-flex align-items-center overlay-background">
+						<div class="container nagoyameshi-container overlay-text">
+							<h1 class="text-white catchphrase-heading">名古屋ならではの味を、<br>見つけよう</h1>
+							<p class="text-white catchphrase-paragraph">NAGOYAMESHIは、<br>名古屋市のB級グルメ専門のレビューサイトです。</p>
+						</div>
 					</div>
-				</div>
+
+
+
+					<div class="container pt-4 pb-5 nagoyameshi-container">
+						<div th:if="${param.loggedIn}" class="alert alert-info">
+							ログインしました。
+						</div>
+
+						<div th:if="${param.loggedOut}" class="alert alert-info">
+							ログアウトしました。
+						</div>
+
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+
+						<div class="d-flex justify-content-center">
+							<form method="get" th:action="@{/restaurants}" class="mb-5 nagoyameshi-search-form">
+								<div class="input-group">
+									<input type="text" class="form-control" name="keyword" th:value="${keyword}"
+										placeholder="店舗名・カテゴリ">
+									<button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+								</div>
+							</form>
+						</div>
+
+						<h2 class="text-center mb-3">新着</h2>
+						<div class="row row-cols-lg-5 row-cols-2 g-3 mb-5">
+							<div class="col" th:each="newRestaurant : ${newRestaurants}">
+								<a th:href="@{/restaurants/__${newRestaurant.getId()}__}"
+									class="link-dark nagoyameshi-card-link">
+									<div class="card h-100">
+										<img th:if="${newRestaurant.getImageName()}"
+											th:src="@{/storage/__${newRestaurant.getImageName()}__}"
+											class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
+										<img th:unless="${newRestaurant.getImageName()}" th:src="@{/images/noImage.png}"
+											class="card-img-top nagoyameshi-vertical-card-image" alt="NO IMAGE">
+										<div class="card-body">
+											<h3 class="card-title" th:text="${newRestaurant.getName()}"></h3>
+											<p class="card-text mb-1">
+												<small class="text-muted"
+													th:text="${newRestaurant.getAddress()}"></small>
+											</p>
+											<p class="card-text">
+												<span
+													th:text="${#numbers.formatInteger(newRestaurant.getLowestPrice(), 1, 'COMMA') + '円～' + #numbers.formatInteger(newRestaurant.getHighestPrice(), 1, 'COMMA') + '円'}"></span>
+
+											</p>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<h2 class="text-center">カテゴリ検索</h2>
+						<div class="row justify-content-center mb-4">
+							<div class="col-12 col-md-8">
+								<th:block th:each="category : ${categories}">
+									<a class="btn btn-secondary mb-2"
+										th:href="@{/restaurants(category_id=${category.getId()})}" role="button"
+										th:text="${category.getName()}"></a>
+								</th:block>
+							</div>
+						</div>
 		</main>
 
 		<!-- フッター -->
@@ -178,6 +110,6 @@
 	</div>
 
 	<div th:replace="~{fragment :: scripts}"></div>
-</body>
+	</body>
 
 </html>

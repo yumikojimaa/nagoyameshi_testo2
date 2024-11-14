@@ -34,13 +34,10 @@ public class Reservation {
      private LocalDate reservationDate;
      
      @Column(name = "reservation_time")
-     private Integer reservationTime;   
+     private String reservationTime;   
      
      @Column(name = "number_of_people")
-     private Integer numberOfPeople; 
-     
-     @Column(name = "amount")
-     private Integer amount;     
+     private Integer numberOfPeople;    
      
      @Column(name = "created_at", insertable = false, updatable = false)
      private Timestamp createdAt;

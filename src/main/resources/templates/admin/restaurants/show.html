@@ -75,7 +75,8 @@
              
                                      <div class="col">
     									<span th:text="${#numbers.formatInteger(restaurant.getLowestPrice(), 1, 'COMMA') + '円～' + #numbers.formatInteger(restaurant.getHighestPrice(), 1, 'COMMA') + '円'}"></span>
-									</div>                       
+									</div>   
+                                 </div>                    
                                  
                                  <div class="row pb-2 mb-2 border-bottom">
                                      <div class="col-4">
@@ -103,7 +104,7 @@
                                      </div>
              
                                      <div class="col">
-                                         <span th:text="${restaurant.getRegularHoliday()"></span>
+                                        <span th:text="${restaurant.getRegularHoliday()}" id="regularHoliday"></span>
                                      </div>
                                  </div>
                                  
@@ -113,7 +114,7 @@
                                      </div>
              
                                      <div class="col">
-                                         <span th:text="${restaurant.getOpeningTime()"></span>
+                                         <span th:text="${restaurant.getOpeningTime()}"></span>
                                      </div>
                                  </div>
                                  
@@ -133,7 +134,7 @@
                                      </div>
              
                                      <div class="col">
-                                         <span th:text="${restaurant.getCategory()}"></span>
+                                         <span th:text="${restaurant.getCategory().getName()}"></span>
                                      </div>
                                  </div>                                
                              </div>                                                  
