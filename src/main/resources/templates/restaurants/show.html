@@ -190,8 +190,13 @@
 													<div th:if="${#fields.hasErrors('reservationTime')}"
 														class="text-danger small mb-2" th:errors="*{reservationTime}">
 													</div>
+													<!--
 													<input type="number" class="form-control"
-														th:field="*{reservationTime}" min="1">
+														th:field="*{reservationTime}" th:min="${timeList[0]}" th:max="${timeList[#lists.size(timeList)-1]}">
+													-->
+													<select class="form-select" th:field="*{reservationTime}">
+													  <option th:each="time : ${timeList}" th:value="${time}" th:text="${time}"></option>
+													</select>
 												</div>
 
 												<div class="form-group mb-4">
