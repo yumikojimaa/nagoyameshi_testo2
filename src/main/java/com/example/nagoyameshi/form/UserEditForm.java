@@ -1,6 +1,7 @@
 package com.example.nagoyameshi.form;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -33,4 +34,6 @@ public class UserEditForm {
     
     @NotBlank(message = "職業を入力してください。")
     private String occupation;
+
+    private Boolean useSubscription;
 }
